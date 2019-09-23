@@ -1,0 +1,54 @@
+* Remember Names & Faces
+
+Project 10 - Days 42-44 - [[https://www.hackingwithswift.com/100]]
+
+*Import photos of people (from the photo library or capture with the camera) & put a name to the face to help you learn it.*
+
+Main Topics: Collection Views & UIImagePickerController
+
+[[gif.gif]]
+
+** Day 42
+ - UICollectionView
+ - Custom Cell class - and casting when dequeuing:
+#+BEGIN_SRC Swift
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Person", for: indexPath) as? PersonCell else {
+            fatalError("Unable to dequeue a Person cell.")
+        }
+        
+        return cell
+    }
+#+END_SRC
+[[day42.png]]
+** Day 43
+ - Added a UIImagePickerController():
+#+BEGIN_SRC Swift
+        let picker = UIImagePickerController()
+        picker.allowsEditing = true // the user can crop the picture
+        picker.delegate = self
+        present(picker, animated: true)
+#+END_SRC
+ - Conforming to UIImagePickerControllerDelegate, UINavigationControllerDelegate
+ - Delegate method: didFinishPickingMediaWithInfo
+It returns a dictionary, with keys for .editedImage:
+#+BEGIN_SRC Swift
+guard let image = info[.editedImage] as? UIImage else { return }
+#+END_SRC
+ - Generate a UUID().uuidString
+ - getDocumentsDirectory()
+#+BEGIN_SRC Swift
+    func getDocumentsDirectory() -> URL {
+        let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return path[0]
+    }
+#+END_SRC
+ - Convert UIImage to jpeg and write it to disk
+ - Implemented a data structure to hold the person name and the image file name. Modified the Data Source methods to show the proper data.
+ - Added a Alert Controller with a text field to modify the person's name when the cell is tapped.
+** Day 44 - Challenge
+ 
+ 1. Add a second UIAlertController that gets shown when the user taps a picture, asking them whether they want to rename the person or delete them.1.  
+ 2. Try using picker.sourceType = .camera when creating your image picker, which will tell it to create a new image by taking a photo. This is only available on devices (not on the simulator) so you might want to check the return value of UIImagePickerController.isSourceTypeAvailable() before trying to use it!
+
+[[day44.png]]
