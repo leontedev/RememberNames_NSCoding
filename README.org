@@ -1,6 +1,6 @@
 * Remember Names & Faces
 
-Project 13 - Day 48 - [[https://www.hackingwithswift.com/100]]
+Project 12a - Day 48 - [[https://www.hackingwithswift.com/100]]
 
 *Adding Data Persistance using NSCoding and User Defaults to Project 10: Remember Names. Import photos of people (from the photo library or capture with the camera) & put a name to the face to help you learn it.*
 
